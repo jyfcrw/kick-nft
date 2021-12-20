@@ -1,0 +1,18 @@
+{
+  "name": "@kick-nft/truffle",
+  "version": "1.0.0",
+  "description": "Kick NFT truffle",
+  "license": "MIT",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.1",
+    "@truffle/contract": "^4.4.0",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "dotenv": "^10.0.0",
+    "web3": "^1.6.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8"
+  }
+}

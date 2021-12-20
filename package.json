@@ -1,0 +1,18 @@
+{
+  "description": "A kick ass NFT platform for minting and trading your NFT tokens.",
+  "keywords": [
+    "ethereum",
+    "vue",
+    "truffle",
+    "NFT"
+  ],
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+  }
+}
