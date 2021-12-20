@@ -1,5 +1,5 @@
-const MarketPlace = artifacts.require("MarketPlace");
-const KiCollectable = artifacts.require("KiCollectable");
+const MarketPlace = artifacts.require("MarketPlace")
+const KiCollectable = artifacts.require("KiCollectable")
 
 contract("MarketPlace", accounts => {
   let marketPlace

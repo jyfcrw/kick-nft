@@ -29,7 +29,7 @@ module.exports = {
       network_id: '*',
     },
     ganache: {
-      host: '172.21.240.1',
+      host: 'localhost',
       port: 7545,
       network_id: 5777,
       // from: '',
