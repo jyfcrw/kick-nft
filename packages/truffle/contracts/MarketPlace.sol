@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -45,7 +44,7 @@ contract MarketPlace is Ownable {
      * @param itemTokenAddress The address of the ERC721 contract.
      */
     function setItemToken(address itemTokenAddress) public onlyOwner {
-        require(itemTokenAddress != address(0), "item token address should not be plain.");
+        require(itemTokenAddress != address(0), "item token address should not be plain");
         _itemToken = IERC721(itemTokenAddress);
     }
 
@@ -89,7 +88,7 @@ contract MarketPlace is Ownable {
      * @param price The amount of currency for which to trade the item.
      */
     function openTrade(uint256 itemId, uint256 price) public {
-        require(_itemToken.ownerOf(itemId) == msg.sender, "You can only sell your owned token.");
+        require(_itemToken.ownerOf(itemId) == msg.sender, "You can only sell your owned token");
 
         uint256 tradeId = _tradeIdCounter.current();
         _tradeIdCounter.increment();
@@ -115,7 +114,9 @@ contract MarketPlace is Ownable {
      */
     function executeTrade(uint256 tradeId) public payable {
         Trade memory trade = _trades[tradeId];
-        require(trade.status == "Open", "Trade is not Open.");
+        require(trade.status == "Open", "Trade is not Open");
+
+        require(msg.value >= trade.price, "The amount paid is not enough");
 
         address payable poster = payable(trade.poster);
         poster.transfer(trade.price);
@@ -134,9 +135,9 @@ contract MarketPlace is Ownable {
         Trade memory trade = _trades[tradeId];
         require(
             msg.sender == trade.poster,
-            "Trade can be cancelled only by poster."
+            "Trade can be cancelled only by poster"
         );
-        require(trade.status == "Open", "Trade is not Open.");
+        require(trade.status == "Open", "Trade is not Open");
         _itemToken.transferFrom(address(this), trade.poster, trade.item);
         _trades[tradeId].status = "Cancelled";
 
