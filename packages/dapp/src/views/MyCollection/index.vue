@@ -30,6 +30,7 @@
       <CollectableNew
         :visible="createFormVisible"
         @close="createFormVisible=false"
+        @mint="handleTradeReload"
       />
 
       <CollectableList

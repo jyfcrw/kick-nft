@@ -42,7 +42,7 @@ const store = useStore()
 const props = defineProps({
   visible: Boolean,
 })
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'mint'])
 
 const creating = ref(false)
 const formEl = ref(null)
@@ -111,6 +111,7 @@ const handleConfirm = () => {
         formEl.value.resetFields()
         ElMessage.success('Mint NFT successfully !')
         emit('close')
+        emit('mint')
       } catch (error) {
         ElMessage.error('Failed to create NFT. ' + error?.message)
       }
