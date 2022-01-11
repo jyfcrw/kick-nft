@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
+import urql from '@urql/vue'
 
 import 'normalize.css/normalize.css'
 import 'element-plus/dist/index.css'
@@ -19,6 +20,7 @@ app.use(ElementPlus, { size: 'medium', zIndex: 3000, i18n: i18n.global.t })
 app.use(store)
 app.use(i18n)
 app.use(router)
+app.use(urql, { url: import.meta.env.VITE_SUBGRAPH_QUERY_URL })
 app.mount('#app')
 
 // dayjs locale should place after using ElementPlus

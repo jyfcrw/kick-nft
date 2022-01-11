@@ -1,0 +1,5 @@
+type TradeStatus @entity {
+  id: ID!
+  tradeId: BigInt!
+  status: Bytes
+}

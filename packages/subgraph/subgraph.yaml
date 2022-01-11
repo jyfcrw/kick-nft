@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MarketPlace
+    network: mainnet
+    source:
+      address: "0x546978794CeFFAe70582Ac58AbdeFe2705eAbE6b"
+      abi: MarketPlace
+      startBlock: 150
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TradeStatus
+      abis:
+        - name: MarketPlace
+          file: ./abis/MarketPlace.json
+      eventHandlers:
+        - event: TradeStatusChange(uint256,bytes32)
+          handler: handleTradeStatusChange
+      file: ./src/mapping.ts

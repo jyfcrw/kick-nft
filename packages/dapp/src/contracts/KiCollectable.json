@@ -20715,12 +20715,30 @@
         }
       },
       "links": {},
-      "address": "0x1FD58B5BbC54277E28d4e9517e94238e0A4B5403",
-      "transactionHash": "0x1052b8781e6aab85032de4ed252a0bfd18a42d5ed571d75746a25a0f3ff9db8d"
+      "address": "0x89c08660FFa87126dAd814E603aeB7c82E84ec4B",
+      "transactionHash": "0x4ca38bd8a0efd73dfb325e553caa6974b6e247f15f8d17c0ffa6dfb7a72ee544"
+    },
+    "1641011454965": {
+      "events": {},
+      "links": {},
+      "address": "0xa313522Aa86496f1F6c4D76C458Ddc4108d24651",
+      "transactionHash": "0x7bae3133d4555ffb7948f6484fca49ec7db0c6a035d8d8a3fc77d0a97ddba2d0"
+    },
+    "1641047416983": {
+      "events": {},
+      "links": {},
+      "address": "0xA425d3dBAAbda55d3De59c78791F5f8A7002A762",
+      "transactionHash": "0x26ddf7b361f9f0f18c8f6672d006ef7f0d8f2a75d3502ab3bfff230845e9c979"
+    },
+    "1641047717561": {
+      "events": {},
+      "links": {},
+      "address": "0x00139fA025ADFB72A8bC848F0b4F8B3C77b79e11",
+      "transactionHash": "0xa47db0e0b578e4584e007373a5784d45a37b86a4c17d77ab308cacc45386c857"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-22T17:59:05.628Z",
+  "updatedAt": "2022-01-01T14:42:25.903Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "Kick Ass Collectable (KCB), Base on Openzeppelin ERC721 contract.",
