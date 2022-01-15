@@ -1,5 +1,27 @@
-type TradeStatus @entity {
+enum Status {
+  Open
+  Executed
+  Cancelled
+}
+
+type Trade @entity {
+  """
+  Trade Entity
+  """
   id: ID!
-  tradeId: BigInt!
-  status: Bytes
+  status: Status!
+  price: BigInt!
+  "NFT token id"
+  item: BigInt!
+  "Address of trade creator"
+  poster: Bytes!
+  "List all status changes"
+  changes: [TradeChange!]! @derivedFrom(field: "trade")
+}
+
+type TradeChange @entity {
+  id: ID!
+  trade: Trade!
+  status: Status!
+  timestamp: Int!
 }

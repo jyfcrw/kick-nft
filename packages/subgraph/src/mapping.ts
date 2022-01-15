@@ -1,47 +1,36 @@
-import { BigInt, Bytes, ethereum } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes, ethereum, log } from "@graphprotocol/graph-ts"
 import {
   MarketPlace,
-  // OwnershipTransferred,
   TradeStatusChange
 } from "../generated/MarketPlace/MarketPlace"
-import { TradeStatus } from "../generated/schema"
-import { newMockEvent } from "matchstick-as"
+import {
+  Trade,
+  // Status,
+  TradeChange,
+} from "../generated/schema"
 
 export function handleTradeStatusChange(event: TradeStatusChange): void {
-  let entity = new TradeStatus(
+  let tradeEntity = Trade.load(event.params.id.toString())
+  if (tradeEntity === null) {
+    const contract = MarketPlace.bind(event.address)
+    const tradeData = contract.getTrade(event.params.id)
+    tradeEntity = new Trade(event.params.id.toString())
+    tradeEntity.poster = <Bytes>tradeData.value0
+    tradeEntity.item = <BigInt>tradeData.value1
+    tradeEntity.price = <BigInt>tradeData.value2
+  }
+
+  let tradeChangeEntity = new TradeChange(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  console.log("----------------------------------------- trade: " + event.params.id.toString())
-  entity.tradeId = event.params.id
-  entity.status = event.params.status
-  entity.save()
+  tradeChangeEntity.trade = tradeEntity.id
+  tradeChangeEntity.status = event.params.status.toString()
+  tradeChangeEntity.timestamp = event.block.timestamp.toI32()
+  tradeChangeEntity.save()
+
+  tradeEntity.status = tradeChangeEntity.status
+  tradeEntity.save()
 }
-
-export function createTradeStatusChangeEvent(
-  id: i32,
-  status: Bytes
-): TradeStatusChange {
-  let mockEvent = newMockEvent()
-  let tradeStatusChange = new TradeStatusChange(
-    mockEvent.address,
-    mockEvent.logIndex,
-    mockEvent.transactionLogIndex,
-    mockEvent.logType,
-    mockEvent.block,
-    mockEvent.transaction,
-    mockEvent.parameters,
-  )
-
-  tradeStatusChange.parameters = new Array()
-  let idParam = new ethereum.EventParam('id', ethereum.Value.fromI32(id))
-  let statusParam = new ethereum.EventParam('status', ethereum.Value.fromBytes(status))
-
-  tradeStatusChange.parameters.push(idParam)
-  tradeStatusChange.parameters.push(statusParam)
-
-  return tradeStatusChange
-}
-
 
 // export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   // Entities can be loaded from the store using a string ID; this ID
