@@ -29,8 +29,8 @@ contract KiCollectable is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     function mintToken(address to, string memory uri) public returns (uint256) {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
+        _safeMint(to, tokenId);
 
         return tokenId;
     }

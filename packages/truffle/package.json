@@ -4,7 +4,16 @@
   "description": "Kick NFT truffle",
   "license": "MIT",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "compile": "truffle compile",
+    "migrate": "truffle migrate",
+    "lint": "slither ."
+  },
+  "workspaces": {
+    "nohoist": [
+      "@openzeppelin/**"
+    ]
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^4.4.1",
     "@openzeppelin/test-helpers": "^0.5.15",

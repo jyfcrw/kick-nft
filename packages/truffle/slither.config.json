@@ -1,0 +1,8 @@
+{
+    "exclude_informational": false,
+    "exclude_low": false,
+    "exclude_medium": false,
+    "exclude_high": false,
+    "disable_color": false,
+    "truffle_build_directory": "../dapp/src/contracts"
+}

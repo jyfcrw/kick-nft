@@ -93,8 +93,6 @@ contract MarketPlace is Ownable {
         uint256 tradeId = _tradeIdCounter.current();
         _tradeIdCounter.increment();
 
-        _itemToken.transferFrom(msg.sender, address(this), itemId);
-
         _trades[tradeId] = Trade({
             poster: msg.sender,
             item: itemId,
@@ -106,6 +104,8 @@ contract MarketPlace is Ownable {
         _totals[msg.sender]++;
 
         emit TradeStatusChange(tradeId, "Open");
+
+        _itemToken.transferFrom(msg.sender, address(this), itemId);
     }
 
     /**
@@ -118,13 +118,13 @@ contract MarketPlace is Ownable {
 
         require(msg.value >= trade.price, "The amount paid is not enough");
 
+        _trades[tradeId].status = "Executed";
+        emit TradeStatusChange(tradeId, "Executed");
+
         address payable poster = payable(trade.poster);
         poster.transfer(trade.price);
 
         _itemToken.transferFrom(address(this), msg.sender, trade.item);
-        _trades[tradeId].status = "Executed";
-
-        emit TradeStatusChange(tradeId, "Executed");
     }
 
     /**
@@ -138,9 +138,10 @@ contract MarketPlace is Ownable {
             "Trade can be cancelled only by poster"
         );
         require(trade.status == "Open", "Trade is not Open");
-        _itemToken.transferFrom(address(this), trade.poster, trade.item);
-        _trades[tradeId].status = "Cancelled";
 
+        _trades[tradeId].status = "Cancelled";
         emit TradeStatusChange(tradeId, "Cancelled");
+
+        _itemToken.transferFrom(address(this), trade.poster, trade.item);
     }
 }
